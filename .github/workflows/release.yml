@@ -1,19 +1,22 @@
-name: Release
+name: Release (Manual)
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '发布版本号 (e.g., 1.0.0)'
+        required: true
+        default: '1.0.0'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 代码迁出
+      - name: 代码迁出 (Checkout)
         uses: actions/checkout@v4
 
-      - name: 构建Java环境
+      - name: 构建Java环境 (Setup Java)
         uses: actions/setup-java@v4
         with:
           distribution: "zulu"
@@ -24,19 +27,18 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
 
-      - name: 生成apk
+      - name: 生成apk (Build APK)
         run: chmod +x ./gradlew && ./gradlew assembleRelease
-
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD}}
 
-      - name: 获取版本号
+      - name: 获取版本号 (Get Version)
         id: version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >>$GITHUB_OUTPUT
+        run: echo "version=${{ github.event.inputs.version }}" >>$GITHUB_OUTPUT
 
-      - name: 重命名应用
+      - name: 重命名应用 (Rename APK)
         run: |
           for file in app/build/outputs/apk/release/app-*.apk; do
             if [[ $file =~ app-(.?*)release.apk ]]; then
