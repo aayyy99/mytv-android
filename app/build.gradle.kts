@@ -102,6 +102,9 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer-hls:1.6.0")
     implementation("androidx.media3:media3-exoplayer-rtsp:1.6.0")
 
+    // FFmpeg
+    implementation("com.arthenica:ffmpeg-kit-full:4.5.LTS")
+
     // 序列化
     implementation(libs.kotlinx.serialization)
 
