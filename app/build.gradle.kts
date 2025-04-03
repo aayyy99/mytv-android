@@ -97,9 +97,10 @@ dependencies {
     implementation(libs.androidx.tv.material)
 
     // 播放器
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.exoplayer.hls)
-    implementation(libs.androidx.media3.exoplayer.rtsp)
+    implementation 'androidx.media3:media3-exoplayer:1.6.0'
+    implementation 'androidx.media3:media3-ui:1.6.0'
+    implementation 'androidx.media3:media3-exoplayer-hls:1.6.0'
+    implementation 'androidx.media3:media3-exoplayer-rtsp:1.6.0'
 
     // 序列化
     implementation(libs.kotlinx.serialization)
