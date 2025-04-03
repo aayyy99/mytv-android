@@ -78,6 +78,12 @@ android {
     }
 }
 
+repositories {
+    google()
+    mavenCentral()
+    maven { url = uri("https://raw.githubusercontent.com/tanersener/ffmpeg-kit-releases/maven/") }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
